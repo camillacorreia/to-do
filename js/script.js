@@ -31,11 +31,35 @@ function renderizarTarefas() {
         // Criar um texto
         let itemTexto = document.createTextNode(tarefa);
 
+        // Criar um ícone
+        let itemIcone = document.createElement('i');
+
+        // Adicionar classes no ícone do item da lista
+        itemIcone.setAttribute('class', 'material-icons md-dark');
+
+        // Adicionar estilo no ícone do item da lista
+        itemIcone.style.float = 'right';
+        itemIcone.style.color = '#C4302B';
+
+        // Nome do ícone
+        let itemTextoIcone = document.createTextNode("delete_sweep");
+
+        // Adicionar o nome do ícone
+        itemIcone.appendChild(itemTextoIcone);
+
         // Adicionar o texto no item da lista
         itemLista.appendChild(itemTexto);
 
+        // Adicionar o icone da lista na lista
+        itemLista.appendChild(itemIcone);
+
         // Adicionar o item da lista na lista
         lista.appendChild(itemLista);
+
+        // Adicionar evento de clique no item da lista
+        itemIcone.onclick = function(){
+            deletarTarefa(this);
+        }
     }
 }
 
@@ -80,4 +104,12 @@ function removerSpans(){
     for(let i = 0; i < spans.length; i++){
         card.removeChild(spans[i]);
     }
+}
+
+function deletarTarefa(tar){
+    // Remove a tarefa do array
+    tarefas.splice(tarefas.indexOf(tar.textContent), 1);
+
+    // Renderiza novamente a tela
+    renderizarTarefas();
 }
