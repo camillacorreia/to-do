@@ -10,12 +10,7 @@ let lista = document.querySelector('#lista');
 // card
 let card = document.querySelector('.card');
 
-let tarefas = [
-    'Ver filmes',
-    'Ler livro',
-    'Estudar React',
-    'Aprender Node'
-];
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
 
 function renderizarTarefas() {
     // Limpar a listagem de itens antes de renderizar novamente a tela
@@ -83,6 +78,9 @@ btn.onclick = function() {
 
         // Limpar mensagens de erro (spans)
         removerSpans();
+
+        // Salva os novos dados no banco de dados
+        salvarDadosNoStorage();
     } else {
         // Limpar mensagens de erro (spans)
         removerSpans();
@@ -112,4 +110,12 @@ function deletarTarefa(tar){
 
     // Renderiza novamente a tela
     renderizarTarefas();
+
+    // Salva os novos dados no banco de dados
+    salvarDadosNoStorage();
 }
+
+function salvarDadosNoStorage(){
+    // Todo navegador web possui esta capacidade
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+} 
